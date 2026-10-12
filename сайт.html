@@ -1,0 +1,577 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101316">
+<title>РУСМАКС СТРОЙ — Строительство и ремонт</title>
+<style>
+:root {
+  --bg:#101316;
+  --panel:#191e22;
+  --gold:#ffb52e;
+  --white:#f7f7f5;
+  --muted:#aab0b5;
+  --line:#ffffff18;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:85px}
+body{background:var(--bg);color:var(--white);font-family:Arial,sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+img{display:block;width:100%;object-fit:cover}
+.container{width:min(1200px,90%);margin:auto}
+.gold{color:var(--gold)}
+header{height:82px;position:sticky;top:0;z-index:100;background:#101316ed;backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav{height:100%;display:flex;align-items:center;justify-content:space-between;gap:22px}
+.brand{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:900;white-space:nowrap}
+.brand-icon{font-size:34px;color:var(--gold)}
+.brand small{display:block;font-size:9px;color:var(--muted);letter-spacing:2px;margin-top:5px}
+nav{display:flex;gap:22px}
+nav a{font-size:12px;color:#d1d4d6;transition:.25s}
+nav a:hover{color:var(--gold)}
+.btn{display:inline-flex;justify-content:center;align-items:center;gap:10px;padding:14px 20px;background:var(--gold);color:#151515;border:1px solid var(--gold);border-radius:7px;font-weight:bold;font-size:13px;transition:transform .25s,box-shadow .25s}
+.btn:hover{transform:translateY(-3px);box-shadow:0 9px 28px #ffb52e35}
+.btn-outline{background:transparent;color:white;border-color:#ffffff55}
+.menu-btn{display:none;background:none;border:0;color:white;font-size:27px}
+.hero{position:relative;min-height:600px;display:flex;align-items:center;overflow:hidden;background:#171b1d}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(90deg,#0b0e10f5 0%,#0b0e10d9 42%,#0b0e1030 100%),url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2000&q=90') center/cover;animation:heroZoom 18s ease-in-out infinite alternate}
+.hero-content{position:relative;z-index:1;padding:95px 0;max-width:650px}
+.eyebrow{font-size:11px;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:22px}
+h1{font-size:clamp(42px,7vw,82px);line-height:1.02;letter-spacing:-3px;font-weight:900}
+h1 span{color:var(--gold)}
+.hero p{max-width:510px;color:#d0d3d5;line-height:1.85;font-size:15px;margin:25px 0 30px}
+.actions{display:flex;gap:12px;flex-wrap:wrap}
+.hero-bottom{display:flex;gap:36px;flex-wrap:wrap;margin-top:60px}
+.metric strong{font-size:27px;color:var(--gold);display:block}
+.metric span{display:block;font-size:11px;color:#d0d3d5;margin-top:7px}
+.section{padding:90px 0}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:25px;margin-bottom:35px}
+.kicker{font-size:10px;color:var(--gold);letter-spacing:3px;text-transform:uppercase}
+h2{font-size:clamp(30px,4vw,46px);letter-spacing:-1.4px;margin-top:12px}
+.section-head>p{color:var(--muted);font-size:13px;line-height:1.8;max-width:370px}
+.services{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.service{padding:28px 22px;background:linear-gradient(145deg,#20252a,#141719);border:1px solid var(--line);border-radius:10px;transition:.35s;position:relative;overflow:hidden}
+.service:before{content:"";position:absolute;width:100px;height:100px;right:-50px;top:-50px;background:var(--gold);filter:blur(65px);opacity:0;transition:.4s}
+.service:hover{transform:translateY(-8px);border-color:#ffb52e75}
+.service:hover:before{opacity:.3}
+.service .icon{font-size:35px;color:var(--gold);margin-bottom:22px}
+.service h3{font-size:16px;margin-bottom:12px}
+.service p{font-size:12px;line-height:1.8;color:var(--muted)}
+.projects{background:#0c0f11}
+.filters{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:25px}
+.filter{padding:10px 15px;background:transparent;color:#bbb;border:1px solid var(--line);border-radius:30px;font-size:12px}
+.filter.active,.filter:hover{background:var(--gold);color:#151515;border-color:var(--gold)}
+.project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.project{background:#191e22;border:1px solid var(--line);border-radius:10px;overflow:hidden;transition:.35s}
+.project:hover{transform:translateY(-6px);border-color:#ffb52e70}
+.project-img{height:235px;overflow:hidden;position:relative;cursor:pointer}
+.project-img img{height:100%;transition:transform .7s}
+.project:hover .project-img img{transform:scale(1.08)}
+.project-img:after{content:"↗";position:absolute;right:15px;top:15px;background:var(--gold);color:#111;padding:10px 13px;border-radius:50%}
+.project-info{padding:21px}
+.project-info h3{font-size:16px;margin-bottom:10px}
+.project-info p{font-size:12px;line-height:1.8;color:var(--muted)}
+.project-meta{display:flex;justify-content:space-between;gap:8px;margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-size:11px;color:var(--gold)}
+.why{display:grid;grid-template-columns:1fr 1fr;gap:55px;align-items:center}
+.why-img{height:440px;border-radius:12px;overflow:hidden;position:relative}
+.why-img img{height:100%;transition:transform 1s}
+.why-img:hover img{transform:scale(1.05)}
+.why-copy>p{font-size:14px;color:var(--muted);line-height:1.9;margin:20px 0}
+.benefits{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:30px 0}
+.benefit{border-left:2px solid var(--gold);padding:4px 0 4px 14px}
+.benefit strong{display:block;font-size:14px;margin-bottom:7px}
+.benefit span{font-size:11px;color:var(--muted);line-height:1.7}
+.calculator{background:linear-gradient(130deg,#242017,#161a1d 60%);border-top:1px solid #ffb52e30;border-bottom:1px solid #ffb52e30}
+.calc-layout{display:grid;grid-template-columns:1.1fr .9fr;gap:35px;align-items:start}
+.calc-box,.calc-result{padding:30px;background:#0e1114;border:1px solid var(--line);border-radius:12px}
+.field{margin-bottom:22px}
+.field label{display:block;font-size:12px;color:#cdd0d2;margin-bottom:10px}
+.field input,.field select,.field textarea{width:100%;padding:14px;background:#1a1f23;border:1px solid #ffffff25;color:white;border-radius:6px;outline:none}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold)}
+.field input[type=range]{padding:0;accent-color:var(--gold)}
+.range-line{display:flex;justify-content:space-between;gap:15px;font-size:12px;margin-bottom:12px}
+.calc-result{position:sticky;top:105px;background:linear-gradient(145deg,#292218,#111518)}
+.calc-result .label{font-size:12px;color:var(--muted)}
+.total{font-size:clamp(32px,4vw,46px);color:var(--gold);font-weight:900;margin:15px 0}
+.calc-result p{font-size:12px;color:var(--muted);line-height:1.9}
+.result-line{display:flex;justify-content:space-between;gap:15px;padding:14px 0;border-bottom:1px solid var(--line);font-size:12px}
+.result-line strong{color:white}
+.calc-result .btn{width:100%;margin-top:24px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.step{padding-top:18px;border-top:1px solid #ffb52e80}
+.step-number{font-size:35px;color:var(--gold);font-weight:900}
+.step h3{font-size:15px;margin:17px 0 10px}
+.step p{font-size:12px;color:var(--muted);line-height:1.8}
+.contact{background:linear-gradient(100deg,#111517f5,#111517e8),url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1800&q=80') center/cover}
+.contact-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:45px}
+.contact-copy>p{color:var(--muted);line-height:1.9;font-size:13px;margin:20px 0}
+.contact-link{display:block;font-size:23px;font-weight:bold;color:var(--gold);margin:22px 0}
+.contact-small{font-size:12px;color:var(--muted);line-height:1.8}
+.form-box{padding:28px;background:#151a1de8;border:1px solid var(--line);border-radius:12px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 15px}
+.form-box textarea{min-height:100px;resize:vertical}
+.form-box .field{margin-bottom:15px}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:11px;line-height:1.6;color:var(--muted);margin:15px 0}
+.consent input{margin-top:3px;accent-color:var(--gold)}
+.form-box button{width:100%}
+footer{padding:35px 0;background:#090b0d}
+.footer-row{display:flex;justify-content:space-between;align-items:center;gap:25px;flex-wrap:wrap}
+.footer-note{font-size:11px;color:var(--muted);line-height:1.9}
+.footer-nav{display:flex;gap:18px;flex-wrap:wrap}
+.footer-nav a{font-size:11px;color:#bbb}
+.footer-nav a:hover{color:var(--gold)}
+.dev{border-top:1px solid var(--line);margin-top:25px;padding-top:20px;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;font-size:11px;color:#92999e}
+.dev strong{color:var(--gold)}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .75s,transform .75s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.toast{position:fixed;right:20px;bottom:20px;background:#222a2e;border:1px solid var(--gold);padding:18px 22px;border-radius:8px;z-index:200;max-width:320px;box-shadow:0 10px 40px #0008}
+.toast[hidden]{display:none}
+.lightbox{position:fixed;inset:0;background:#000e;z-index:300;display:none;align-items:center;justify-content:center;padding:25px}
+.lightbox.open{display:flex}
+.lightbox img{max-width:1000px;max-height:80vh;border-radius:10px;object-fit:contain}
+.lightbox button{position:absolute;top:20px;right:25px;background:#222;color:white;border:1px solid #ffffff44;border-radius:50%;width:45px;height:45px;font-size:25px}
+#topBtn{position:fixed;bottom:22px;left:22px;z-index:80;border:1px solid #ffb52e66;background:#171b1ddd;color:var(--gold);width:42px;height:42px;border-radius:50%;font-size:20px;opacity:0;pointer-events:none;transition:.3s}
+#topBtn.show{opacity:1;pointer-events:auto}
+@keyframes heroZoom{from{transform:scale(1)}to{transform:scale(1.07)}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
+@media(max-width:900px){
+ nav{gap:12px}nav a{font-size:11px}
+ .nav>.btn{padding:11px;font-size:11px}
+ .services{grid-template-columns:repeat(2,1fr)}
+ .project-grid{grid-template-columns:repeat(2,1fr)}
+ .calc-layout{grid-template-columns:1fr}
+ .calc-result{position:static}
+ .why{gap:30px}
+}
+@media(max-width:650px){
+ header{height:70px}.container{width:91%}
+ .menu-btn{display:block}
+ nav{display:none;position:absolute;top:69px;left:0;right:0;padding:22px;background:#101316;flex-direction:column;border-bottom:1px solid var(--line)}
+ nav.open{display:flex}
+ nav a{font-size:14px;padding:8px}
+ .nav>.btn{display:none}
+ .hero{min-height:650px}
+ .hero-bg{background-position:60% center;background-image:linear-gradient(90deg,#0b0e10ed,#0b0e1080),url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1000&q=85')}
+ .hero-content{padding:75px 0}
+ h1{letter-spacing:-1.5px}
+ .hero p{font-size:14px}
+ .hero-bottom{gap:22px;margin-top:42px}
+ .metric strong{font-size:22px}
+ .section{padding:65px 0}
+ .section-head{align-items:flex-start;flex-direction:column}
+ .services,.project-grid,.why,.contact-layout,.form-grid,.steps{grid-template-columns:1fr}
+ .service{padding:24px}
+ .project-img{height:230px}
+ .why-img{height:300px}
+ .benefits{gap:17px}
+ .calc-box,.calc-result,.form-box{padding:20px}
+ .footer-row{align-items:flex-start;flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a class="brand" href="#home">
+      <span class="brand-icon">⌂</span>
+      <span>РУСМАКС <span class="gold">СТРОЙ</span><small>СТРОИМ ВАШЕ БУДУЩЕЕ</small></span>
+    </a>
+    <nav id="nav">
+      <a href="#home">Главная</a>
+      <a href="#services">Услуги</a>
+      <a href="#projects">Проекты</a>
+      <a href="#about">О компании</a>
+      <a href="#calculator">Расчёт</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <a class="btn" href="tel:+79309696254">☎ Позвонить</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Открыть меню">☰</button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="eyebrow">◆ Строительная компания</div>
+      <h1>РУСМАКС<br><span>СТРОЙ</span></h1>
+      <p>Надёжные решения для вашего будущего. Строительство домов, коммерческих объектов и ремонт под ключ. Внимание к деталям на каждом этапе.</p>
+      <div class="actions">
+        <a class="btn" href="#calculator">Рассчитать стоимость →</a>
+        <a class="btn btn-outline" href="#projects">Наши проекты ↗</a>
+      </div>
+      <div class="hero-bottom">
+        <div class="metric"><strong><span class="counter" data-target="100">0</span>%</strong><span>ВНИМАНИЕ К КАЧЕСТВУ</span></div>
+        <div class="metric"><strong>360°</strong><span>КОМПЛЕКСНЫЙ ПОДХОД</span></div>
+        <div class="metric"><strong>01</strong><span>ВАШ НАДЁЖНЫЙ ПАРТНЁР</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="services">
+<div class="container">
+  <div class="section-head reveal">
+    <div><div class="kicker">01 / ЧТО МЫ ДЕЛАЕМ</div><h2>Наши <span class="gold">услуги</span></h2></div>
+    <p>От идеи и проектирования до строительства и финальной отделки. Подбираем решение под вашу задачу.</p>
+  </div>
+  <div class="services">
+    <article class="service reveal"><div class="icon">⌂</div><h3>Строительство домов</h3><p>Частные дома, коттеджи, загородные резиденции и дачи.</p></article>
+    <article class="service reveal"><div class="icon">▥</div><h3>Коммерческие объекты</h3><p>Офисы, магазины, производственные и складские помещения.</p></article>
+    <article class="service reveal"><div class="icon">⚒</div><h3>Ремонт и отделка</h3><p>Внутренняя отделка, обновление интерьера и ремонт помещений.</p></article>
+    <article class="service reveal"><div class="icon">⚙</div><h3>Инженерные системы</h3><p>Электрика, отопление, вентиляция и водоснабжение.</p></article>
+    <article class="service reveal"><div class="icon">▦</div><h3>Фундаменты</h3><p>Подготовка основания и фундаментные работы для объектов.</p></article>
+    <article class="service reveal"><div class="icon">▤</div><h3>Кровельные работы</h3><p>Устройство кровли, утепление и защита от влаги.</p></article>
+    <article class="service reveal"><div class="icon">✎</div><h3>Проектирование</h3><p>Планирование пространства и подготовка строительных решений.</p></article>
+    <article class="service reveal"><div class="icon">✓</div><h3>Ремонт под ключ</h3><p>Комплекс работ от подготовки помещения до финальных деталей.</p></article>
+  </div>
+</div>
+</section>
+
+<section class="section projects" id="projects">
+<div class="container">
+  <div class="section-head reveal">
+    <div><div class="kicker">02 / ГАЛЕРЕЯ</div><h2>Наши <span class="gold">проекты</span></h2></div>
+    <p>Примеры направлений, которые можно представить в портфолио компании.</p>
+  </div>
+  <div class="filters">
+    <button class="filter active" data-filter="all">Все проекты</button>
+    <button class="filter" data-filter="house">Дома</button>
+    <button class="filter" data-filter="commercial">Коммерческие</button>
+    <button class="filter" data-filter="interior">Интерьеры</button>
+  </div>
+  <div class="project-grid">
+    <article class="project reveal" data-category="house">
+      <div class="project-img"><img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=900&q=85" alt="Современный частный дом" loading="lazy"></div>
+      <div class="project-info"><h3>Современный коттедж</h3><p>Просторный дом с панорамными окнами и террасой.</p><div class="project-meta"><span>Частное строительство</span><span>↗</span></div></div>
+    </article>
+    <article class="project reveal" data-category="commercial">
+      <div class="project-img"><img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=85" alt="Современное офисное здание" loading="lazy"></div>
+      <div class="project-info"><h3>Деловой центр</h3><p>Современная архитектура и функциональное пространство.</p><div class="project-meta"><span>Коммерческая недвижимость</span><span>↗</span></div></div>
+    </article>
+    <article class="project reveal" data-category="interior">
+      <div class="project-img"><img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=900&q=85" alt="Современный интерьер гостиной" loading="lazy"></div>
+      <div class="project-info"><h3>Дизайнерский интерьер</h3><p>Современная отделка, свет и внимание к деталям.</p><div class="project-meta"><span>Ремонт и отделка</span><span>↗</span></div></div>
+    </article>
+    <article class="project reveal" data-category="house">
+      <div class="project-img"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=85" alt="Загородный дом с террасой" loading="lazy"></div>
+      <div class="project-info"><h3>Загородная резиденция</h3><p>Продуманное пространство для комфортной жизни.</p><div class="project-meta"><span>Дома и коттеджи</span><span>↗</span></div></div>
+    </article>
+    <article class="project reveal" data-category="commercial">
+      <div class="project-img"><img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=85" alt="Офисное пространство" loading="lazy"></div>
+      <div class="project-info"><h3>Рабочее пространство</h3><p>Организация удобного и современного офиса.</p><div class="project-meta"><span>Коммерческие объекты</span><span>↗</span></div></div>
+    </article>
+    <article class="project reveal" data-category="interior">
+      <div class="project-img"><img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=85" alt="Светлый современный интерьер" loading="lazy"></div>
+      <div class="project-info"><h3>Современная отделка</h3><p>Сочетание фактур, освещения и практичных решений.</p><div class="project-meta"><span>Отделочные работы</span><span>↗</span></div></div>
+    </article>
+  </div>
+  <p class="footer-note" style="margin-top:20px">Фотографии демонстрационные. Замените их реальными объектами компании перед публикацией.</p>
+</div>
+</section>
+
+<section class="section" id="about">
+<div class="container why">
+  <div class="why-img reveal">
+    <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1100&q=85" alt="Строительная площадка" loading="lazy">
+  </div>
+  <div class="why-copy reveal">
+    <div class="kicker">03 / О КОМПАНИИ</div>
+    <h2>Строим с <span class="gold">ответственностью</span></h2>
+    <p>РУСМАКС СТРОЙ — строительная компания, для которой важны продуманный подход, качество выполнения работ и понятное взаимодействие с заказчиком.</p>
+    <div class="benefits">
+      <div class="benefit"><strong>Продуманный подход</strong><span>Учитываем задачи и особенности каждого проекта.</span></div>
+      <div class="benefit"><strong>Контроль этапов</strong><span>Последовательно организуем строительные работы.</span></div>
+      <div class="benefit"><strong>Понятная смета</strong><span>Обсуждаем состав работ и расходы заранее.</span></div>
+      <div class="benefit"><strong>Связь с заказчиком</strong><span>Согласовываем решения по ходу проекта.</span></div>
+    </div>
+    <a class="btn" href="#contacts">Обсудить проект →</a>
+  </div>
+</div>
+</section>
+
+<section class="section calculator" id="calculator">
+<div class="container">
+  <div class="section-head reveal">
+    <div><div class="kicker">04 / ПЛАНИРОВАНИЕ</div><h2>Калькулятор <span class="gold">стоимости</span></h2></div>
+    <p>Укажи площадь и вид работ, чтобы получить предварительный ориентир стоимости.</p>
+  </div>
+  <div class="calc-layout">
+    <div class="calc-box reveal">
+      <div class="field">
+        <label for="kind">Тип работ</label>
+        <select id="kind">
+          <option value="house">Строительство дома</option>
+          <option value="commercial">Коммерческий объект</option>
+          <option value="repair">Ремонт и отделка</option>
+          <option value="foundation">Устройство фундамента</option>
+        </select>
+      </div>
+      <div class="field">
+        <div class="range-line"><label for="area">Площадь объекта</label><strong><span id="areaValue">120</span> м²</strong></div>
+        <input id="area" type="range" min="20" max="500" step="10" value="120">
+      </div>
+      <div class="field">
+        <label for="level">Уровень исполнения</label>
+        <select id="level">
+          <option value="1">Базовый</option>
+          <option value="1.35" selected>Стандартный</option>
+          <option value="1.8">Премиальный</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="region">Регион строительства</label>
+        <select id="region">
+          <option value="1">Регион уточняется</option>
+          <option value="1.15">Крупный город</option>
+          <option value="1.3">Удалённый объект</option>
+        </select>
+      </div>
+    </div>
+    <div class="calc-result reveal">
+      <div class="label">ПРЕДВАРИТЕЛЬНЫЙ БЮДЖЕТ</div>
+      <div class="total" id="total">6 480 000 ₽</div>
+      <p>Это ориентировочный расчёт для планирования. Реальная стоимость зависит от проекта, материалов, региона и состава работ.</p>
+      <div class="result-line"><span>Площадь</span><strong id="resultArea">120 м²</strong></div>
+      <div class="result-line"><span>Цена за м² (ориентир)</span><strong id="unitPrice">54 000 ₽</strong></div>
+      <div class="result-line"><span>Тип работ</span><strong id="resultKind">Строительство дома</strong></div>
+      <a href="#contacts" class="btn">Получить точный расчёт →</a>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="section">
+<div class="container">
+  <div class="section-head reveal">
+    <div><div class="kicker">05 / ЭТАПЫ РАБОТЫ</div><h2>От идеи до <span class="gold">результата</span></h2></div>
+  </div>
+  <div class="steps">
+    <div class="step reveal"><div class="step-number">01</div><h3>Заявка</h3><p>Обсуждаем задачу, пожелания и ориентировочный бюджет.</p></div>
+    <div class="step reveal"><div class="step-number">02</div><h3>Расчёт</h3><p>Уточняем объём работ, материалы и состав сметы.</p></div>
+    <div class="step reveal"><div class="step-number">03</div><h3>Работы</h3><p>Согласовываем этапы и организуем выполнение проекта.</p></div>
+    <div class="step reveal"><div class="step-number">04</div><h3>Результат</h3><p>Проверяем выполненные работы и согласуем завершение.</p></div>
+  </div>
+</div>
+</section>
+
+<section class="section contact" id="contacts">
+<div class="container">
+  <div class="section-head reveal">
+    <div><div class="kicker">06 / СВЯЖИТЕСЬ С НАМИ</div><h2>Обсудим ваш <span class="gold">проект</span></h2></div>
+    <p>Оставьте контактные данные и кратко опишите задачу. Мы подготовим сообщение для отправки.</p>
+  </div>
+  <div class="contact-layout">
+    <div class="contact-copy reveal">
+      <h3>РУСМАКС СТРОЙ</h3>
+      <p>Расскажите, что планируете построить или отремонтировать. Начнём с обсуждения задачи.</p>
+      <a class="contact-link" href="tel:+79309696254">☎ +7 930 969 62 54</a>
+      <div class="contact-small">Нажмите на номер, чтобы позвонить.<br>Время работы и адрес уточняются.</div>
+      <p class="contact-small">Разработчик сайта<br><strong class="gold">Руслан Хутугов</strong></p>
+    </div>
+    <form class="form-box reveal" id="contactForm">
+      <div class="form-grid">
+        <div class="field"><label for="name">Ваше имя *</label><input id="name" name="name" placeholder="Как к вам обращаться?" required maxlength="80"></div>
+        <div class="field"><label for="phone">Телефон *</label><input id="phone" name="phone" type="tel" placeholder="+7 ..." required maxlength="30"></div>
+      </div>
+      <div class="field"><label for="service">Какая услуга интересует?</label>
+        <select id="service" name="service">
+          <option>Строительство дома</option><option>Коммерческий объект</option><option>Ремонт и отделка</option><option>Фундамент</option><option>Другое</option>
+        </select>
+      </div>
+      <div class="field"><label for="message">Описание проекта</label><textarea id="message" name="message" placeholder="Например: дом 120 м², один этаж..." maxlength="1000"></textarea></div>
+      <label class="consent"><input type="checkbox" id="consent" required><span>Я согласен(на) на обработку введённых данных для связи по заявке.</span></label>
+      <button class="btn" type="submit">Подготовить заявку →</button>
+      <p class="footer-note" style="margin-top:12px">Откроется приложение для отправки сообщения. Форма сама по себе не сохраняет данные на сервере.</p>
+    </form>
+  </div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="container">
+  <div class="footer-row">
+    <a class="brand" href="#home"><span class="brand-icon">⌂</span><span>РУСМАКС <span class="gold">СТРОЙ</span><small>СТРОИМ ВАШЕ БУДУЩЕЕ</small></span></a>
+    <div class="footer-nav"><a href="#home">Главная</a><a href="#services">Услуги</a><a href="#projects">Проекты</a><a href="#contacts">Контакты</a></div>
+    <a class="gold" href="tel:+79309696254">+7 930 969 62 54</a>
+  </div>
+  <div class="dev"><span>© <span id="year"></span> РУСМАКС СТРОЙ. Все права защищены.</span><span>Разработчик сайта: <strong>Руслан Хутугов</strong></span></div>
+</div>
+</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр фотографии">
+  <button id="closeLightbox" aria-label="Закрыть">×</button>
+  <img id="lightboxImage" alt="Увеличенная фотография проекта">
+</div>
+<button id="topBtn" aria-label="Наверх">↑</button>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+const $ = (selector) => document.querySelector(selector);
+
+// Мобильное меню
+$("#menuBtn").addEventListener("click", () => {
+  const nav = $("#nav");
+  nav.classList.toggle("open");
+  $("#menuBtn").textContent = nav.classList.contains("open") ? "×" : "☰";
+});
+
+$("#nav").querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => {
+    $("#nav").classList.remove("open");
+    $("#menuBtn").textContent = "☰";
+  });
+});
+
+// Анимация появления блоков при прокрутке
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
+
+// Счётчик при появлении первого экрана
+const counterObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const target = Number(el.dataset.target);
+      const start = performance.now();
+      const duration = 1400;
+      function tick(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        el.textContent = Math.floor(target * progress);
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+      counterObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll(".counter").forEach(el => counterObserver.observe(el));
+
+// Фильтр портфолио
+document.querySelectorAll(".filter").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".filter").forEach(b => b.classList.remove("active"));
+    button.classList.add("active");
+    const filter = button.dataset.filter;
+
+    document.querySelectorAll(".project").forEach(card => {
+      const show = filter === "all" || card.dataset.category === filter;
+      card.style.display = show ? "" : "none";
+    });
+  });
+});
+
+// Интерактивный калькулятор
+const rates = {
+  house: { name: "Строительство дома", rate: 40000 },
+  commercial: { name: "Коммерческий объект", rate: 50000 },
+  repair: { name: "Ремонт и отделка", rate: 15000 },
+  foundation: { name: "Устройство фундамента", rate: 10000 }
+};
+
+function calculate() {
+  const area = Number($("#area").value);
+  const kind = rates[$("#kind").value];
+  const level = Number($("#level").value);
+  const region = Number($("#region").value);
+  const unit = Math.round(kind.rate * level * region);
+  const total = area * unit;
+
+  $("#areaValue").textContent = area;
+  $("#resultArea").textContent = area + " м²";
+  $("#resultKind").textContent = kind.name;
+  $("#unitPrice").textContent = unit.toLocaleString("ru-RU") + " ₽";
+  $("#total").textContent = total.toLocaleString("ru-RU") + " ₽";
+}
+
+["area", "kind", "level", "region"].forEach(id => {
+  $("#" + id).addEventListener("input", calculate);
+  $("#" + id).addEventListener("change", calculate);
+});
+calculate();
+
+// Просмотр фотографий в полном размере
+document.querySelectorAll(".project-img").forEach(box => {
+  box.addEventListener("click", () => {
+    $("#lightboxImage").src = box.querySelector("img").src;
+    $("#lightbox").classList.add("open");
+    document.body.style.overflow = "hidden";
+    $("#closeLightbox").focus();
+  });
+});
+
+function closeLightbox() {
+  $("#lightbox").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+$("#closeLightbox").addEventListener("click", closeLightbox);
+$("#lightbox").addEventListener("click", event => {
+  if (event.target === $("#lightbox")) closeLightbox();
+});
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeLightbox();
+});
+
+// Кнопка прокрутки наверх
+window.addEventListener("scroll", () => {
+  $("#topBtn").classList.toggle("show", window.scrollY > 500);
+});
+$("#topBtn").addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+// Форма: подготовка сообщения для WhatsApp
+$("#contactForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  if (!$("#consent").checked) {
+    alert("Пожалуйста, подтвердите согласие на обработку данных.");
+    return;
+  }
+
+  const name = $("#name").value.trim();
+  const phone = $("#phone").value.trim();
+  const service = $("#service").value;
+  const message = $("#message").value.trim();
+
+  if (!name || !phone) {
+    alert("Заполните имя и телефон.");
+    return;
+  }
+
+  const text =
+    "Здравствуйте! Заявка с сайта РУСМАКС СТРОЙ.%0A";
+
+  const content = [
+    "Здравствуйте! Заявка с сайта РУСМАКС СТРОЙ.",
+    "Имя: " + name,
+    "Телефон клиента: " + phone,
+    "Услуга: " + service,
+    "Описание: " + (message || "Не указано")
+  ].join("\n");
+
+  const url = "https://wa.me/79309696254?text=" + encodeURIComponent(content);
+  window.open(url, "_blank", "noopener,noreferrer");
+});
+
+$("#year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
+
